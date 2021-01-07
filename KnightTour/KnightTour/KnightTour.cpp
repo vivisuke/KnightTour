@@ -118,7 +118,7 @@ void KnightTour(int n, int x, int y) {
 	if( x == 1 && y == 2 ) {
 		if( n == g_BD_SIZE ) {	//	found!
 			++g_count;
-			if (g_count % 100 == 0) cout << ".";
+			if (g_count % 1000 == 0) cout << ".";
 			//cout << g_count << ":\n";
 			//print();
 		} else if( n != 2 ) {
@@ -208,7 +208,10 @@ int countKnightTour(int wd, int ht) {
 int main()
 {
 	cout << countKnightTour(10, 3) << "\n";
+	cout << countKnightTour(3, 10) << "\n";
+	cout << countKnightTour(5, 6) << "\n";
 	cout << countKnightTour(6, 5) << "\n";
 	cout << countKnightTour(6, 6) << "\n";
-    std::cout << "\nOK!\n";
+	cout << countKnightTour(6, 7) << "\n";
+	std::cout << "\nOK!\n";
 }
