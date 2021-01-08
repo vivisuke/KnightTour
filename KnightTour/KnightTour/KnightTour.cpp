@@ -39,6 +39,58 @@ void printNConnect() {		//	連結数表示
 	cout << "\n";
 }
 bool decNConnect(int x, int y, int& ix1) {
+#if	1
+	int nc1 = 0, ix;
+	if( g_bd[ix = xyToIX(x-1, y-2)] == 0 ) {
+		if( --g_nConnect[ix] == 1 ) {
+			++nc1;
+			ix1 = ix;
+		}
+	}
+	if( g_bd[ix = xyToIX(x+1, y-2)] == 0 ) {
+		if( --g_nConnect[ix] == 1 ) {
+			++nc1;
+			ix1 = ix;
+		}
+	}
+	if( g_bd[ix = xyToIX(x-2, y-1)] == 0 ) {
+		if( --g_nConnect[ix] == 1 ) {
+			++nc1;
+			ix1 = ix;
+		}
+	}
+	if( g_bd[ix = xyToIX(x+2, y-1)] == 0 ) {
+		if( --g_nConnect[ix] == 1 ) {
+			++nc1;
+			ix1 = ix;
+		}
+	}
+	if( g_bd[ix = xyToIX(x-2, y+1)] == 0 ) {
+		if( --g_nConnect[ix] == 1 ) {
+			++nc1;
+			ix1 = ix;
+		}
+	}
+	if( g_bd[ix = xyToIX(x+2, y+1)] == 0 ) {
+		if( --g_nConnect[ix] == 1 ) {
+			++nc1;
+			ix1 = ix;
+		}
+	}
+	if( g_bd[ix = xyToIX(x-1, y+2)] == 0 ) {
+		if( --g_nConnect[ix] == 1 ) {
+			++nc1;
+			ix1 = ix;
+		}
+	}
+	if( g_bd[ix = xyToIX(x+1, y+2)] == 0 ) {
+		if( --g_nConnect[ix] == 1 ) {
+			++nc1;
+			ix1 = ix;
+		}
+	}
+	return nc1 <= 1;		//	連結数１のマスが２個以上ある → 枝刈り
+#else
 	bool notDeadEnd = true;
 	int ix;
 	if( g_bd[ix = xyToIX(x-1, y-2)] == 0 ) {
@@ -74,6 +126,7 @@ bool decNConnect(int x, int y, int& ix1) {
 		else if( g_nConnect[ix] == 1 ) ix1 = ix;
 	}
 	return notDeadEnd;
+#endif
 }
 void incNConnect(int x, int y) {
 	if( g_bd[xyToIX(x-1, y-2)] == 0 )
@@ -207,11 +260,16 @@ int countKnightTour(int wd, int ht) {
 }
 int main()
 {
+	auto start = std::chrono::system_clock::now();      // 計測スタート時刻を保存
 	cout << countKnightTour(10, 3) << "\n";
 	cout << countKnightTour(3, 10) << "\n";
 	cout << countKnightTour(5, 6) << "\n";
 	cout << countKnightTour(6, 5) << "\n";
 	cout << countKnightTour(6, 6) << "\n";
 	cout << countKnightTour(6, 7) << "\n";
+	auto end = std::chrono::system_clock::now();       // 計測終了時刻を保存
+	auto dur = end - start;        // 要した時間を計算
+	auto msec = std::chrono::duration_cast<std::chrono::milliseconds>(dur).count();
+	cout << msec << "msec\n";
 	std::cout << "\nOK!\n";
 }
