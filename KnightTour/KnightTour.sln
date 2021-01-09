@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KnightTour", "KnightTour\Kn
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KnightTour2", "KnightTour2\KnightTour2.vcxproj", "{18477610-1087-46BB-AF2D-0BCB7DBD426A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KnightTour3", "KnightTour3\KnightTour3.vcxproj", "{FA8C6CEA-A2D0-4438-9782-EBA574B73381}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{18477610-1087-46BB-AF2D-0BCB7DBD426A}.Release|x64.Build.0 = Release|x64
 		{18477610-1087-46BB-AF2D-0BCB7DBD426A}.Release|x86.ActiveCfg = Release|Win32
 		{18477610-1087-46BB-AF2D-0BCB7DBD426A}.Release|x86.Build.0 = Release|Win32
+		{FA8C6CEA-A2D0-4438-9782-EBA574B73381}.Debug|x64.ActiveCfg = Debug|x64
+		{FA8C6CEA-A2D0-4438-9782-EBA574B73381}.Debug|x64.Build.0 = Debug|x64
+		{FA8C6CEA-A2D0-4438-9782-EBA574B73381}.Debug|x86.ActiveCfg = Debug|Win32
+		{FA8C6CEA-A2D0-4438-9782-EBA574B73381}.Debug|x86.Build.0 = Debug|Win32
+		{FA8C6CEA-A2D0-4438-9782-EBA574B73381}.Release|x64.ActiveCfg = Release|x64
+		{FA8C6CEA-A2D0-4438-9782-EBA574B73381}.Release|x64.Build.0 = Release|x64
+		{FA8C6CEA-A2D0-4438-9782-EBA574B73381}.Release|x86.ActiveCfg = Release|Win32
+		{FA8C6CEA-A2D0-4438-9782-EBA574B73381}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

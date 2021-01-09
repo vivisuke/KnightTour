@@ -314,9 +314,19 @@ private:
 };
 int main()
 {
-	Board bd;
-	cout << "10x3: " << bd.countKnightTour(10, 3) << "\n";
-	cout << "6x5: " << bd.countKnightTour(6, 5) << "\n";
-	cout << "6x6: " << bd.countKnightTour(6, 6) << "\n";
+	if( 1 ) {
+		cout << "not Pruning:\n\n";
+		Board bd;
+		cout << "10x3: " << bd.countKnightTour(10, 3) << "\n";
+		cout << "6x5: " << bd.countKnightTour(6, 5) << "\n";
+		cout << "6x6: " << bd.countKnightTour(6, 6) << "\n";
+	}
+	if( 1 ) {
+		cout << "with Pruning:\n\n";
+		BoardPruning bd;
+		cout << "10x3: " << bd.countKnightTour(10, 3) << "\n";
+		cout << "6x5: " << bd.countKnightTour(6, 5) << "\n";
+		cout << "6x6: " << bd.countKnightTour(6, 6) << "\n";
+	}
     std::cout << "\nOK!\n";
 }
