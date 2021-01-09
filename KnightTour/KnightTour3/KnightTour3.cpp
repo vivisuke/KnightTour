@@ -179,6 +179,13 @@ int main()
 	cout << bd.countKnightTour(10, 3) << "\n";
 	cout << bd.countKnightTour(6, 5) << "\n";
 	cout << bd.countKnightTour(6, 6) << "\n";
-	cout << bd.countKnightTour(6, 7) << "\n";
+	if( 1 ) {
+		auto start = std::chrono::system_clock::now();      // 計測スタート時刻を保存
+		cout << bd.countKnightTour(6, 7) << "\n";
+		auto end = std::chrono::system_clock::now();       // 計測終了時刻を保存
+	    auto dur = end - start;        // 要した時間を計算
+	    auto msec = std::chrono::duration_cast<std::chrono::milliseconds>(dur).count();
+	    cout << msec << "msec\n";
+	}
     std::cout << "\nOK!\n";
 }

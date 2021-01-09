@@ -242,7 +242,7 @@ public:
 		if( x == 1 && y == 2 ) {
 			if( n == m_BD_SIZE ) {	//	found!
 				++m_count;
-				if (m_count % 1000 == 0) cout << ".";
+				if (m_count % 10000 == 0) cout << ".";
 				//cout << m_count << ":\n";
 				//printBoard();
 			} else if( n != 2 ) {
@@ -314,7 +314,7 @@ private:
 };
 int main()
 {
-	if( 1 ) {
+	if( 0 ) {
 		cout << "not Pruning:\n\n";
 		Board bd;
 		cout << "10x3: " << bd.countKnightTour(10, 3) << "\n";
@@ -327,6 +327,14 @@ int main()
 		cout << "10x3: " << bd.countKnightTour(10, 3) << "\n";
 		cout << "6x5: " << bd.countKnightTour(6, 5) << "\n";
 		cout << "6x6: " << bd.countKnightTour(6, 6) << "\n";
+		if( 1 ) {
+			auto start = std::chrono::system_clock::now();      // 計測スタート時刻を保存
+			cout << bd.countKnightTour(6, 7) << "\n";
+			auto end = std::chrono::system_clock::now();       // 計測終了時刻を保存
+		    auto dur = end - start;        // 要した時間を計算
+		    auto msec = std::chrono::duration_cast<std::chrono::milliseconds>(dur).count();
+		    cout << msec << "msec\n";
+		}
 	}
     std::cout << "\nOK!\n";
 }
