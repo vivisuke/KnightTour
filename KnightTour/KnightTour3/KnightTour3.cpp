@@ -13,26 +13,20 @@ public:
 		setSize(wd, ht);
 	}
 public:
-	inline int xyToIX(int x, int y) const { return (x + 2) + (y + 2) * m_ARY_WIDTH; }
+	//inline int aryXyToIX(int x, int y) const { return (x + 2) + (y + 2) * m_ARY_WIDTH; }
 	inline int inrXyToIX(int x, int y) const { return x + y * m_BD_WIDTH; }
+	inline bool isInner(int x, int y) const { return x >= 0 && x < m_BD_WIDTH && y >= 0 && y < m_BD_HEIGHT; }
 	void setSize(int wd, int ht) {
 		m_BD_WIDTH = wd;
 		m_BD_HEIGHT = ht;
 		m_BD_SIZE = wd * ht;
-		m_ARY_WIDTH = wd + 4;
-		m_ARY_HEIGHT = ht + 4;
-		m_ARY_SIZE = (wd + 4) * (ht + 4);
-		//	盤面配列初期化
-		m_bd.resize(m_ARY_SIZE);
-		for (auto& x : m_bd) x = WALL;	//	番人
-		for (int y = 0; y < ht; ++y) {
-			for (int x = 0; x < wd; ++x) {
-				m_bd[xyToIX(x, y)] = 0;
-			}
-		}
-		//printBoard();
+		//m_ARY_WIDTH = wd + 4;
+		//m_ARY_HEIGHT = ht + 4;
+		//m_ARY_SIZE = (wd + 4) * (ht + 4);
+		//	nth 配列初期化
 		m_nth.resize(m_BD_SIZE);
 		for(auto& x: m_nth) x = 0;
+#if	1
 		//	連結リスト初期化
 		m_nConnect.resize(m_BD_SIZE);
 		m_connects.resize(m_BD_SIZE);
@@ -40,24 +34,53 @@ public:
 		for (int y = 0; y < ht; ++y) {
 			for (int x = 0; x < wd; ++x, ++ix) {
 				m_connects[ix].clear();
-				if (m_bd[xyToIX(x - 1, y - 2)] == 0) m_connects[ix].push_back(inrXyToIX(x - 1, y - 2));
-				if (m_bd[xyToIX(x + 1, y - 2)] == 0) m_connects[ix].push_back(inrXyToIX(x + 1, y - 2));
-				if (m_bd[xyToIX(x - 2, y - 1)] == 0) m_connects[ix].push_back(inrXyToIX(x - 2, y - 1));
-				if (m_bd[xyToIX(x + 2, y - 1)] == 0) m_connects[ix].push_back(inrXyToIX(x + 2, y - 1));
-				if (m_bd[xyToIX(x - 2, y + 1)] == 0) m_connects[ix].push_back(inrXyToIX(x - 2, y + 1));
-				if (m_bd[xyToIX(x + 2, y + 1)] == 0) m_connects[ix].push_back(inrXyToIX(x + 2, y + 1));
-				if (m_bd[xyToIX(x - 1, y + 2)] == 0) m_connects[ix].push_back(inrXyToIX(x - 1, y + 2));
-				if (m_bd[xyToIX(x + 1, y + 2)] == 0) m_connects[ix].push_back(inrXyToIX(x + 1, y + 2));
+				if (isInner(x - 1, y - 2)) m_connects[ix].push_back(inrXyToIX(x - 1, y - 2));
+				if (isInner(x + 1, y - 2)) m_connects[ix].push_back(inrXyToIX(x + 1, y - 2));
+				if (isInner(x - 2, y - 1)) m_connects[ix].push_back(inrXyToIX(x - 2, y - 1));
+				if (isInner(x + 2, y - 1)) m_connects[ix].push_back(inrXyToIX(x + 2, y - 1));
+				if (isInner(x - 2, y + 1)) m_connects[ix].push_back(inrXyToIX(x - 2, y + 1));
+				if (isInner(x + 2, y + 1)) m_connects[ix].push_back(inrXyToIX(x + 2, y + 1));
+				if (isInner(x - 1, y + 2)) m_connects[ix].push_back(inrXyToIX(x - 1, y + 2));
+				if (isInner(x + 1, y + 2)) m_connects[ix].push_back(inrXyToIX(x + 1, y + 2));
 			}
 		}
+#else
+		//	盤面配列初期化
+		m_bd.resize(m_ARY_SIZE);
+		for (auto& x : m_bd) x = WALL;	//	番人
+		for (int y = 0; y < ht; ++y) {
+			for (int x = 0; x < wd; ++x) {
+				m_bd[aryXyToIX(x, y)] = 0;
+			}
+		}
+		//printBoard();
+		//	連結リスト初期化
+		m_nConnect.resize(m_BD_SIZE);
+		m_connects.resize(m_BD_SIZE);
+		int ix = 0;
+		for (int y = 0; y < ht; ++y) {
+			for (int x = 0; x < wd; ++x, ++ix) {
+				m_connects[ix].clear();
+				if (m_bd[aryXyToIX(x - 1, y - 2)] == 0) m_connects[ix].push_back(inrXyToIX(x - 1, y - 2));
+				if (m_bd[aryXyToIX(x + 1, y - 2)] == 0) m_connects[ix].push_back(inrXyToIX(x + 1, y - 2));
+				if (m_bd[aryXyToIX(x - 2, y - 1)] == 0) m_connects[ix].push_back(inrXyToIX(x - 2, y - 1));
+				if (m_bd[aryXyToIX(x + 2, y - 1)] == 0) m_connects[ix].push_back(inrXyToIX(x + 2, y - 1));
+				if (m_bd[aryXyToIX(x - 2, y + 1)] == 0) m_connects[ix].push_back(inrXyToIX(x - 2, y + 1));
+				if (m_bd[aryXyToIX(x + 2, y + 1)] == 0) m_connects[ix].push_back(inrXyToIX(x + 2, y + 1));
+				if (m_bd[aryXyToIX(x - 1, y + 2)] == 0) m_connects[ix].push_back(inrXyToIX(x - 1, y + 2));
+				if (m_bd[aryXyToIX(x + 1, y + 2)] == 0) m_connects[ix].push_back(inrXyToIX(x + 1, y + 2));
+			}
+		}
+#endif
 		for (int i = 0; i != m_BD_SIZE; ++i) {
 			m_nConnect[i] = (uchar)m_connects[i].size();
 		}
 	}
+#if 0
 	void printBoard() const {		//	m_bd[] 盤面表示
 		for (int y = 0; y < m_BD_HEIGHT; ++y) {
 			for (int x = 0; x < m_BD_WIDTH; ++x) {
-				auto t = to_string((int)m_bd[xyToIX(x, y)]);
+				auto t = to_string((int)m_bd[aryXyToIX(x, y)]);
 				if (t.size() < 2) t = ' ' + t;
 				cout << t << " ";
 			}
@@ -65,6 +88,7 @@ public:
 		}
 		cout << "\n";
 	}
+#endif
 	void printNth() const {		//	m_nth[] 盤面表示
 		for (int y = 0; y < m_BD_HEIGHT; ++y) {
 			for (int x = 0; x < m_BD_WIDTH; ++x) {
@@ -81,7 +105,7 @@ public:
 		int ix = 0;
 		for (int y = 0; y < m_BD_HEIGHT; ++y) {
 			for (int x = 0; x < m_BD_WIDTH; ++x) {
-				m_bd[xyToIX(x, y)] = m_nth[ix++];
+				m_bd[aryXyToIX(x, y)] = m_nth[ix++];
 			}
 		}
 		printBoard();
@@ -160,10 +184,10 @@ private:
 	int m_BD_WIDTH;		//	盤面幅
 	int m_BD_HEIGHT;	//	盤面高
 	int m_BD_SIZE;
-	int m_ARY_WIDTH;	//	番人を含んだ配列幅
-	int m_ARY_HEIGHT;	//	番人を含んだ配列高
-	int m_ARY_SIZE;
-	vector<uchar>	m_bd;			//	番人を含んだ盤面配列
+	//int m_ARY_WIDTH;	//	番人を含んだ配列幅
+	//int m_ARY_HEIGHT;	//	番人を含んだ配列高
+	//int m_ARY_SIZE;
+	//vector<uchar>	m_bd;			//	番人を含んだ盤面配列
 	vector<uchar>	m_nth;			//	
 	vector<uchar>	m_nConnect;		//	各セル連結数
 	vector<vector<uchar>>	m_connects;		//	各セルと連結しているセルインデックスリスト
@@ -176,12 +200,23 @@ int main()
 	bd.printNth();
 	bd.printConnects();
 #endif
-	cout << bd.countKnightTour(10, 3) << "\n";
-	cout << bd.countKnightTour(6, 5) << "\n";
-	cout << bd.countKnightTour(6, 6) << "\n";
+	cout << "3x10: " << bd.countKnightTour(3, 10) << "\n";
+	cout << "10x3: " << bd.countKnightTour(10, 3) << "\n";
+	cout << "10x4: " << bd.countKnightTour(10, 4) << "\n";
+	cout << "4x4: " << bd.countKnightTour(4, 4) << "\n";
+	cout << "6x5: " << bd.countKnightTour(6, 5) << "\n";
+	cout << "6x6: " << bd.countKnightTour(6, 6) << "\n";
 	if( 1 ) {
 		auto start = std::chrono::system_clock::now();      // 計測スタート時刻を保存
-		cout << bd.countKnightTour(6, 7) << "\n";
+		cout << "6x7: " << bd.countKnightTour(6, 7) << "\n";
+		auto end = std::chrono::system_clock::now();       // 計測終了時刻を保存
+	    auto dur = end - start;        // 要した時間を計算
+	    auto msec = std::chrono::duration_cast<std::chrono::milliseconds>(dur).count();
+	    cout << msec << "msec\n";
+	}
+	if( 0 ) {
+		auto start = std::chrono::system_clock::now();      // 計測スタート時刻を保存
+		cout << "10x3: " << bd.countKnightTour(6, 8) << "\n";
 		auto end = std::chrono::system_clock::now();       // 計測終了時刻を保存
 	    auto dur = end - start;        // 要した時間を計算
 	    auto msec = std::chrono::duration_cast<std::chrono::milliseconds>(dur).count();

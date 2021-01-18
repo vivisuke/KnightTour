@@ -163,6 +163,58 @@ public:
 		cout << "\n";
 	}
 	bool decNConnect(int x, int y, int& ix1) {
+#if	1
+		int nc1 = 0, ix;
+		if( m_bd[ix = xyToIX(x-1, y-2)] == 0 ) {
+			if( --m_nConnect[ix] == 0 ) {
+				ix1 = ix;
+				++nc1;
+			}
+		}
+		if( m_bd[ix = xyToIX(x+1, y-2)] == 0 ) {
+			if( --m_nConnect[ix] == 0 ) {
+				ix1 = ix;
+				++nc1;
+			}
+		}
+		if( m_bd[ix = xyToIX(x-2, y-1)] == 0 ) {
+			if( --m_nConnect[ix] == 0 ) {
+				ix1 = ix;
+				++nc1;
+			}
+		}
+		if( m_bd[ix = xyToIX(x+2, y-1)] == 0 ) {
+			if( --m_nConnect[ix] == 0 ) {
+				ix1 = ix;
+				++nc1;
+			}
+		}
+		if( m_bd[ix = xyToIX(x-2, y+1)] == 0 ) {
+			if( --m_nConnect[ix] == 0 ) {
+				ix1 = ix;
+				++nc1;
+			}
+		}
+		if( m_bd[ix = xyToIX(x+2, y+1)] == 0 ) {
+			if( --m_nConnect[ix] == 0 ) {
+				ix1 = ix;
+				++nc1;
+			}
+		}
+		if( m_bd[ix = xyToIX(x-1, y+2)] == 0 ) {
+			if( --m_nConnect[ix] == 0 ) {
+				ix1 = ix;
+				++nc1;
+			}
+		}
+		if( m_bd[ix = xyToIX(x+1, y+2)] == 0 ) {
+			if( --m_nConnect[ix] == 0 ) {
+				ix1 = ix;
+				++nc1;
+			}
+		}
+		return nc1 <= 1;
+#else
 		bool notDeadEnd = true;
 		int ix;
 		if( m_bd[ix = xyToIX(x-1, y-2)] == 0 ) {
@@ -198,6 +250,7 @@ public:
 			else if( m_nConnect[ix] == 1 ) ix1 = ix;
 		}
 		return notDeadEnd;
+#endif
 	}
 	void incNConnect(int x, int y) {
 		if( m_bd[xyToIX(x-1, y-2)] == 0 )
